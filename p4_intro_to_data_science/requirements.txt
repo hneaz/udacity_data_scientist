@@ -1,0 +1,16 @@
+pandas
+numpy
+matplotlib
+IPython
+string
+seaborn
+sklearn
+pylab
+from collections
+time 
+pandas_profiling 
+virtualenv==16.7.5
+virtualenvwrapper==4.8.2
+jupyter==1.0.0
+ipykernel==5.1.2
+xgboost
