@@ -1,3 +1,5 @@
+![battle_of_bastards](./img/Battle_of_Bastards_ShieldWall_v005.jpg)
+
 # Game of Thrones - Battle Prediction
 
 Game of Thrones is a popular fantasy TV show based on a series of books written by George RR Martin. This repository showcases the analysis and predictions of the battles in the book series. 
