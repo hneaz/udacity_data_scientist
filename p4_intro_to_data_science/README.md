@@ -18,7 +18,7 @@ This is a Udacity Data Scientist nanodegree project for **Introduction to Data S
 
 I came up with these questions to answer:
 
-1) Which house wins the most battle in any situation?  
+1) Which house wins the most battles in any situation?  
 2) What is the expected size of the defending army given the size of the attacking army?  
 3) What factors contribute to a battle victory?  
 
@@ -51,11 +51,15 @@ python3 -m ipykernel install --user --name kingofthenorth --display-name "kingof
 ```
 
 ## File Descriptions <a name="files"></a>
-There is one notebook called `got_battle.ipynb` that runs the exploratory data analysis as well as the modeling sections. There is another script called `visuals.py` that is used to plot important features of a model. Lastly, there is an HTML file called `got_battles_data_profile.html` with the notebook outputs.
+*There is one notebook called `got_battle.ipynb` that runs the exploratory data analysis as well as the modeling sections. 
+
+*There is another script called `visuals.py` that is used to plot important features of a model. 
+
+*Lastly, there is an HTML file called `got_battles_data_profile.html` with the notebook outputs.  
 
 ## Results<a name="results"></a>
 
-The main findings of the code can be found at the post available [here]().
+The main findings of the code can be found at the post available [here](https://medium.com/@hneaz1988/game-of-thrones-battles-analysis-and-predicting-victory-6197d961f587).
 
 
 ## Licensing, Authors, Acknowledgements<a name="licensing"></a>
