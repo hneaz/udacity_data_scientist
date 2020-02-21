@@ -6,7 +6,7 @@ string
 seaborn
 sklearn
 pylab
-from collections
+collections
 time 
 pandas_profiling 
 virtualenv==16.7.5
