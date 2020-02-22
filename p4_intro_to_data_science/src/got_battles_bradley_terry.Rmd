@@ -1,0 +1,110 @@
+---
+title: "GOT-Battles-Bradley-Terry"
+author: "Hasib Neaz"
+date: "2/21/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+```{r}
+# installing from CRAN
+#install.packages("BradleyTerryScalable")
+library("BradleyTerryScalable")
+
+# installing from GitHub
+#install.packages("devtools") # if required
+#devtools::install_github("cvarrichio/Matrix.utils", build_vignettes = TRUE)
+library(Matrix.utils)
+```
+
+
+```{r}
+battles_df <- read.csv('../data/battles.csv', header = TRUE, stringsAsFactors=FALSE)
+battles_df
+```
+
+Rename kings
+```{r}
+battles_df <- as.data.frame(lapply(battles_df, function(y) gsub("/", "_", y)))
+battles_df <- as.data.frame(lapply(battles_df, function(y) gsub(" ", "_", y)))
+
+char_list <- c('attacker_king','defender_king','attacker_1','defender_1','attacker_outcome')
+battles_df[,char_list] <- sapply(battles_df[,char_list],as.character)
+
+battles_df
+```
+
+Fill missing `attacker_king` with `attacker_1` and `defender_king` with `defender_1`
+```{r}
+battles_df$attacker_king <- ifelse(battles_df$attacker_king =='',battles_df$attacker_1,battles_df$attacker_king)
+battles_df$defender_king <- ifelse(battles_df$defender_king=='',battles_df$defender_1,battles_df$defender_king)
+battles_df
+```
+
+
+Trim data to `attacker_king`, `defender_king`, `attacker_outcome`
+```{r}
+battles_df1 <- battles_df[,c('attacker_king','defender_king','attacker_outcome')]
+battles_df1
+```
+
+Fill in blanks for `defender_king` as NULL and `attacker_outcome` as No_Defender
+```{r}
+battles_df1$defender_king <- ifelse(battles_df1$defender_king == '','No_Defender',battles_df1$defender_king)
+
+battles_df1$attacker_outcome <- ifelse(battles_df1$attacker_outcome == 'win','W1',battles_df1$attacker_outcome)
+battles_df1$attacker_outcome <- ifelse(battles_df1$attacker_outcome == 'loss','W2',battles_df1$attacker_outcome)
+battles_df1$attacker_outcome <- ifelse(battles_df1$attacker_outcome == '','D',battles_df1$attacker_outcome)
+battles_df1
+```
+
+```{r}
+battles_df1_4col <- codes_to_counts(battles_df1, c("W1", "W2", "D"))
+battles_btdata <- btdata(battles_df1_4col, return_graph = TRUE) 
+```
+
+
+```{r}
+library(igraph)
+par(mar = c(0, 0, 0, 0) + 0.5)  
+plot.igraph(battles_btdata$graph, vertex.size = 20, edge.arrow.size = 0.5) 
+```
+
+
+```{r}
+summary(battles_btdata)
+```
+
+
+```{r}
+battles_fit_MLE <- btfit(battles_btdata, 1)
+battles_fit_MAP <- btfit(battles_btdata, 1.1)
+```
+
+```{r}
+summary(battles_fit_MLE, SE = TRUE)
+```
+
+```{r}
+coef(battles_fit_MAP)
+```
+
+```{r}
+fitted(battles_fit_MLE, as_df = TRUE)
+```
+
+The fitted.btfit() method functions similarly, except it returns the expected number of wins (see ?fitted.btfit()).
+```{r}
+map_fitted <- fitted(battles_fit_MAP, as_df = TRUE)
+map_fitted
+```
+
+
+```{r}
+battles_sim <- simulate(btfit(battles_btdata, 1.1), nsim = 100, seed = 1)
+battles_sim[1:10]
+```
