@@ -9,7 +9,7 @@ pylab
 collections
 time 
 pandas_profiling 
-virtualenv==16.7.5
+virtualenv==20.26.6
 virtualenvwrapper==4.8.2
 jupyter==1.0.0
 ipykernel==5.1.2
